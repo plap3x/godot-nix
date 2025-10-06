@@ -7,19 +7,25 @@
 }:
 with lib;
 let
-  cfg = config.services.godot;
+  cfg = config.programs.godot;
 in
 {
-  options.services.godot = {
+  options.programs.godot = {
     enable = mkEnableOption "godot";
-    package = mkOption {
-      default = withSystem pkgs.stdenv.hostPlatform.system ({ config, ... }: config.packages.default);
+    precision = mkOption {
+      description = "Floating point precision";
+      type = types.str;
     };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = [
-      cfg.package
+      (withSystem pkgs.system (
+        { pkgs, ... }:
+        pkgs.callPackage localFlake.packages.${pkgs.system}.default {
+          precision = cfg.precision;
+        }
+      ))
     ];
   };
 }
