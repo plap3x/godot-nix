@@ -13,19 +13,22 @@ stdenv.mkDerivation rec {
     scons
   ];
 
+  preBuild = ''
+    export HOME=$TMP
+    ${godot}/bin/godot --headless --dump-extension-api
+  '';
+
   sconsFlags = [
     "platform=linux"
-    # "custom_api_file=./extension_api.json"
-    # "bits=64"
+    "custom_api_file=./extension_api.json"
   ];
 
   installPhase = ''
     runHook preInstall
 
-    # ${godot}/bin/godot --headless --dump-extension-api
-
     mkdir -p "$out"/bin
     cp -r bin/* "$out"/bin
+    cp ./extension_api.json $out
 
     runHook postInstall
   '';
