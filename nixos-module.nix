@@ -12,6 +12,9 @@ in
 {
   options.programs.godot = {
     enable = mkEnableOption "godot";
+    package = mkOption {
+      default = withSystem pkgs.stdenv.hostPlatform.system ({ config, ... }: config.packages.default);
+    };
     precision = mkOption {
       description = "Floating point precision";
       type = types.str;
@@ -20,12 +23,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [
-      (withSystem pkgs.system (
-        { pkgs, ... }:
-        pkgs.callPackage localFlake.packages.${pkgs.system}.default {
-          precision = cfg.precision;
-        }
-      ))
+      cfg.package
     ];
   };
 }

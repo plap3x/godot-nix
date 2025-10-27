@@ -32,15 +32,18 @@
       }:
       let
         inherit (flake-parts-lib) importApply;
+        flakeModules.default = importApply ./flake-module.nix { inherit withSystem; };
       in
       {
-        imports = [ ];
+        imports = [
+          flakeModules.default
+        ];
         flake = {
-          nixosModules.default = importApply ./module.nix {
+          inherit flakeModules;
+          nixosModules.default = importApply ./nixos-module.nix {
             localFlake = self;
             inherit withSystem;
           };
-
           nixosConfigurations.test = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
@@ -48,7 +51,7 @@
               {
                 programs.godot = {
                   enable = true;
-                  precision = "double";
+                  # precision = "double";
                 };
               }
             ];
@@ -59,26 +62,67 @@
         ];
         perSystem =
           {
+            config,
             pkgs,
             ...
           }:
-          let
-            godot = pkgs.callPackage ./godot.nix {
-              src = inputs.godot-45;
-              precision = "double";
-            };
-          in
           {
-            packages.default = godot;
+            apps = {
+              default = {
+                type = "app";
+                program = config.packages.default;
+                meta = {
+                  changelog = "https://github.com/godotengine/godot/releases/tag/4.5";
+                  description = "Free and Open Source 2D and 3D game engine";
+                  homepage = "https://godotengine.org";
+                  license = {
+                    spdxId = "MIT";
+                    fullName = "MIT License";
+                  };
+                  platforms = [
+                    "x86_64-linux"
+                    "aarch64-linux"
+                    "i686-linux"
+                  ];
+                  mainProgram = "godot";
+                };
+              };
+              godotDebug = {
+                type = "app";
+                program = config.packages.godotDebug;
+                meta = config.apps.default.meta;
+              };
+            };
 
-            devShells.default = pkgs.mkShell {
-              packages = [
-                godot
-              ];
-              env = { };
-              shellHook = ''
-                echo "Godot `godot --version`"
-              '';
+            packages = {
+              default = pkgs.callPackage ./godot.nix {
+                src = inputs.godot-45;
+                # precision = "double";
+              };
+              godotDebug = pkgs.callPackage ./godot.nix {
+                src = inputs.godot-45;
+              };
+            };
+
+            devShells = {
+              default = pkgs.mkShell {
+                packages = [
+                  config.packages.default
+                ];
+                env = { };
+                shellHook = ''
+                  echo "Godot `godot --version`"
+                '';
+              };
+              debug = pkgs.mkShell {
+                packages = [
+                  config.packages.godotDebug
+                ];
+                env = { };
+                shellHook = ''
+                  echo "Godot `godot --version`"
+                '';
+              };
             };
           };
       }
