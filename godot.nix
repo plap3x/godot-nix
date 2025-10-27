@@ -1,6 +1,6 @@
 {
   lib,
-  precision ? "single",
+  buildOptions ? { },
   src,
   pkgs,
 }:
@@ -9,29 +9,8 @@ let
   mkSconsFlagsFromAttrSet = lib.mapAttrsToList (
     k: v: if builtins.isString v then "${k}=${v}" else "${k}=${builtins.toJSON v}"
   );
-
-  editor = true;
-in
-stdenv.mkDerivation rec {
-  inherit src;
-  name = "godot";
-  outputs = [
-    "out"
-  ]
-  ++ lib.optional (editor) "man";
-  separateDebugInfo = true;
-
-  # Set the build name which is part of the version. In official downloads, this
-  # is set to 'official'. When not specified explicitly, it is set to
-  # 'custom_build'. Other platforms packaging Godot (Gentoo, Arch, Flatpack
-  # etc.) usually set this to their name as well.
-  #
-  # See also 'methods.py' in the Godot repo and 'build' in
-  # https://docs.godotengine.org/en/stable/classes/class_engine.html#class-engine-method-get-version-info
-  BUILD_NAME = "nix_flake";
-
   # From: https://github.com/godotengine/godot/blob/4.5-stable/SConstruct
-  sconsFlags = mkSconsFlagsFromAttrSet ({
+  defaultSconsFlags = {
     # Options from 'SConstruct'
     platform = "linuxbsd"; # Target platform (maybe: darwin)
     # Compilation target
@@ -57,7 +36,7 @@ stdenv.mkDerivation rec {
     # Enable compatibility code for deprecated and removed features
     deprecated = false;
     # Set the floating-point precision level
-    inherit precision; # double
+    precision = "single"; # double
     # Enable ZIP archive support using minizip
     minizip = true;
     # Enable Brotli for decompression and WOFF2 fonts support
@@ -80,7 +59,7 @@ stdenv.mkDerivation rec {
     accesskit_sdk_path = "";
     # Enable the SDL3 input driver
     sdl = true;
-    # lias for dev options: verbose=yes warnings=extra werror=yes tests=yes strict_checks=yes
+    # alias for dev options: verbose=yes warnings=extra werror=yes tests=yes strict_checks=yes
     dev_mode = true;
     # Build the unit tests
     tests = true;
@@ -310,7 +289,28 @@ stdenv.mkDerivation rec {
     # builtin_squish = true; # godot<4.4
     # broken with system packages
     # builtin_miniupnpc = true; # godot<4.4
-  });
+  };
+  editor = defaultSconsFlags.target == "editor";
+in
+stdenv.mkDerivation rec {
+  inherit src;
+  name = "godot";
+  outputs = [
+    "out"
+  ]
+  ++ lib.optional (editor) "man";
+  separateDebugInfo = true;
+
+  # Set the build name which is part of the version. In official downloads, this
+  # is set to 'official'. When not specified explicitly, it is set to
+  # 'custom_build'. Other platforms packaging Godot (Gentoo, Arch, Flatpack
+  # etc.) usually set this to their name as well.
+  #
+  # See also 'methods.py' in the Godot repo and 'build' in
+  # https://docs.godotengine.org/en/stable/classes/class_engine.html#class-engine-method-get-version-info
+  BUILD_NAME = "nix_flake";
+
+  sconsFlags = mkSconsFlagsFromAttrSet (defaultSconsFlags // buildOptions);
 
   enableParallelBuilding = true;
   strictDeps = true;

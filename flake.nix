@@ -51,7 +51,9 @@
               {
                 programs.godot = {
                   enable = true;
-                  # precision = "double";
+                  buildOptions = {
+                    precision = "double";
+                  };
                 };
               }
             ];
@@ -97,10 +99,19 @@
             packages = {
               default = pkgs.callPackage ./godot.nix {
                 src = inputs.godot-45;
-                # precision = "double";
+                buildOptions = { };
               };
               godotDebug = pkgs.callPackage ./godot.nix {
                 src = inputs.godot-45;
+                buildOptions = {
+                  target = "template_debug";
+                };
+              };
+              godotRelease = pkgs.callPackage ./godot.nix {
+                src = inputs.godot-45;
+                buildOptions = {
+                  target = "template_release";
+                };
               };
             };
 
@@ -117,6 +128,15 @@
               debug = pkgs.mkShell {
                 packages = [
                   config.packages.godotDebug
+                ];
+                env = { };
+                shellHook = ''
+                  echo "Godot `godot --version`"
+                '';
+              };
+              release = pkgs.mkShell {
+                packages = [
+                  config.packages.godotRelease
                 ];
                 env = { };
                 shellHook = ''
