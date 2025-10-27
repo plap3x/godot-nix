@@ -52,7 +52,7 @@ in
             description = "CPU architecture";
           };
 
-          devBuild = mkOption {
+          dev_build = mkOption {
             type = types.bool;
             default = true;
             description = "Developer build with dev-only debugging code";
@@ -73,19 +73,19 @@ in
             description = "Optimization level";
           };
 
-          debugSymbols = mkOption {
+          debug_symbols = mkOption {
             type = types.bool;
             default = true;
             description = "Build with debugging symbols";
           };
 
-          separateDebugSymbols = mkOption {
+          separate_debug_symbols = mkOption {
             type = types.bool;
             default = false;
             description = "Extract debugging symbols to a separate file";
           };
 
-          debugPathsRelative = mkOption {
+          debug_paths_relative = mkOption {
             type = types.bool;
             default = false;
             description = "Make file paths in debug symbols relative";
@@ -171,7 +171,7 @@ in
             description = "Enable Metal driver on Apple arm64 only";
           };
 
-          useVolk = mkOption {
+          use_volk = mkOption {
             type = types.bool;
             default = true;
             description = "Use volk to load Vulkan loader dynamically";
@@ -183,7 +183,7 @@ in
             description = "Use AccessKit C SDK";
           };
 
-          accesskitSdkPath = mkOption {
+          accesskit_sdk_path = mkOption {
             type = types.str;
             default = "";
             description = "Path to AccessKit C SDK";
@@ -195,7 +195,7 @@ in
             description = "Enable SDL3 input driver";
           };
 
-          devMode = mkOption {
+          dev_mode = mkOption {
             type = types.bool;
             default = true;
             description = "Alias for dev options (verbose=true, warnings=extra, werror=true, tests=true, strict_checks=true)";
@@ -207,7 +207,7 @@ in
             description = "Build unit tests";
           };
 
-          fastUnsafe = mkOption {
+          fast_unsafe = mkOption {
             type = types.bool;
             default = false;
             description = "Enable unsafe options for faster rebuilds";
@@ -219,13 +219,13 @@ in
             description = "Use ninja backend for faster rebuilds";
           };
 
-          ninjaAutoRun = mkOption {
+          ninja_auto_run = mkOption {
             type = types.bool;
             default = true;
             description = "Run ninja automatically after generating ninja file";
           };
 
-          ninjaFile = mkOption {
+          ninja_file = mkOption {
             type = types.str;
             default = "build.ninja";
             description = "Path to generated ninja file";
@@ -237,7 +237,7 @@ in
             description = "Generate compilation DB (`compile_commands.json`) for external tools";
           };
 
-          numJobs = mkOption {
+          num_jobs = mkOption {
             type = types.str;
             default = "";
             description = "Use up to N jobs when compiling (equivalent to `-j N`). Defaults to max jobs - 1. Ignored if -j is used.";
@@ -272,13 +272,13 @@ in
             description = "Treat warnings as errors";
           };
 
-          extraSuffix = mkOption {
+          extra_suffix = mkOption {
             type = types.str;
             default = "";
             description = "Extra suffix for generated binaries";
           };
 
-          objectPrefix = mkOption {
+          object_prefix = mkOption {
             type = types.str;
             default = "";
             description = "Prefix for object file names";
@@ -290,121 +290,121 @@ in
             description = "Generate Visual Studio solution";
           };
 
-          vsprojName = mkOption {
+          vsproj_name = mkOption {
             type = types.str;
             default = "godot";
             description = "Visual Studio solution name";
           };
 
-          importEnvVars = mkOption {
+          import_env_vars = mkOption {
             type = types.str;
             default = "";
             description = "Comma-separated environment variables to import";
           };
 
-          disableExceptions = mkOption {
+          disable_exceptions = mkOption {
             type = types.bool;
             default = true;
             description = "Force disable exception handling code";
           };
 
-          disable3d = mkOption {
+          disable_3d = mkOption {
             type = types.bool;
             default = false;
             description = "Disable 3D nodes";
           };
 
-          disableAdvancedGui = mkOption {
+          disable_advanced_gui = mkOption {
             type = types.bool;
             default = false;
             description = "Disable advanced GUI nodes";
           };
 
-          disablePhysics2d = mkOption {
+          disable_physics_2d = mkOption {
             type = types.bool;
             default = false;
             description = "Disable 2D physics nodes";
           };
 
-          disablePhysics3d = mkOption {
+          disable_physics_3d = mkOption {
             type = types.bool;
             default = false;
             description = "Disable 3D physics nodes";
           };
 
-          disableNavigation2d = mkOption {
+          disable_navigation_2d = mkOption {
             type = types.bool;
             default = false;
             description = "Disable 2D navigation features";
           };
 
-          disableNavigation3d = mkOption {
+          disable_navigation_3d = mkOption {
             type = types.bool;
             default = false;
             description = "Disable 3D navigation features";
           };
 
-          disableXr = mkOption {
+          disable_xr = mkOption {
             type = types.bool;
             default = true;
             description = "Disable XR nodes and server";
           };
 
-          buildProfile = mkOption {
+          build_profile = mkOption {
             type = types.str;
             default = "";
             description = "Path to feature build profile file";
           };
 
-          customModules = mkOption {
+          custom_modules = mkOption {
             type = types.str;
             default = "";
             description = "Comma-separated list of custom modules";
           };
 
-          customModulesRecursive = mkOption {
+          custom_modules_recursive = mkOption {
             type = types.bool;
             default = true;
             description = "Detect custom modules recursively";
           };
 
-          noEditorSplash = mkOption {
+          no_editor_splash = mkOption {
             type = types.bool;
             default = true;
             description = "Disable custom editor splash screen";
           };
 
-          systemCertsPath = mkOption {
+          system_certs_path = mkOption {
             type = types.str;
             default = "";
             description = "Path to TLS certificates for editor/export templates";
           };
 
-          usePreciseMathChecks = mkOption {
+          use_precise_math_checks = mkOption {
             type = types.bool;
             default = false;
             description = "Use very precise epsilon in math checks";
           };
 
-          strictChecks = mkOption {
+          strict_checks = mkOption {
             type = types.bool;
             default = true;
             description = "Enable stricter debug checks";
           };
 
-          scuBuild = mkOption {
+          scu_build = mkOption {
             type = types.bool;
             default = false;
             description = "Use single compilation unit build";
           };
 
-          scuLimit = mkOption {
+          scu_limit = mkOption {
             type = types.str;
             default = "0";
             description = "Max includes per SCU file (RAM usage)";
           };
 
-          engineUpdateCheck = mkOption {
+          engine_update_check = mkOption {
             type = types.bool;
             default = false;
             description = "Enable engine update checks";
@@ -416,171 +416,171 @@ in
             description = "Enable minimal SteamAPI integration";
           };
 
-          cachePath = mkOption {
+          cache_path = mkOption {
             type = types.str;
             default = "";
             description = "Directory for SCons cache files";
           };
 
-          cacheLimit = mkOption {
+          cache_limit = mkOption {
             type = types.str;
             default = "0";
             description = "Limit for SCons cache";
           };
 
-          redirectBuildObjects = mkOption {
+          redirect_build_objects = mkOption {
             type = types.bool;
             default = false;
             description = "Redirect build objects/libraries to bin/obj/";
           };
 
           # Built-in libraries
-          builtinBrotli = mkOption {
+          builtin_brotli = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in Brotli library";
           };
-          builtinCerts = mkOption {
+          builtin_certs = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in SSL certificates";
           };
-          builtinClipper2 = mkOption {
+          builtin_clipper2 = mkOption {
             type = types.bool;
             default = true;
             description = "Use built-in Clipper2 library";
           };
-          builtinEmbree = mkOption {
+          builtin_embree = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in Embree library";
           };
-          builtinEnet = mkOption {
+          builtin_enet = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in ENet library";
           };
-          builtinFreetype = mkOption {
+          builtin_freetype = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in FreeType library";
           };
-          builtinMsdfgen = mkOption {
+          builtin_msdfgen = mkOption {
             type = types.bool;
             default = true;
             description = "Use built-in MSDFgen library";
           };
-          builtinGlslang = mkOption {
+          builtin_glslang = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in glslang library";
           };
-          builtinGraphite = mkOption {
+          builtin_graphite = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in Graphite library";
           };
-          builtinHarfbuzz = mkOption {
+          builtin_harfbuzz = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in HarfBuzz library";
           };
-          builtinSdl = mkOption {
+          builtin_sdl = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in SDL library";
           };
-          builtinIcu4c = mkOption {
+          builtin_icu4c = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in ICU library";
           };
-          builtinLibjpegTurbo = mkOption {
+          builtin_libjpeg_turbo = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in libjpeg-turbo library";
           };
-          builtinLibogg = mkOption {
+          builtin_libogg = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in libogg library";
           };
-          builtinLibpng = mkOption {
+          builtin_libpng = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in libpng library";
           };
-          builtinLibtheora = mkOption {
+          builtin_libtheora = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in libtheora library";
           };
-          builtinLibvorbis = mkOption {
+          builtin_libvorbis = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in libvorbis library";
           };
-          builtinLibwebp = mkOption {
+          builtin_libwebp = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in libwebp library";
           };
-          builtinWslay = mkOption {
+          builtin_wslay = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in wslay library";
           };
-          builtinMbedtls = mkOption {
+          builtin_mbedtls = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in mbedTLS library";
           };
-          builtinMiniupnpc = mkOption {
+          builtin_miniupnpc = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in miniupnpc library";
           };
-          builtinOpenxr = mkOption {
+          builtin_openxr = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in OpenXR library";
           };
-          builtinPcre2 = mkOption {
+          builtin_pcre2 = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in PCRE2 library";
           };
-          builtinPcre2WithJit = mkOption {
+          builtin_pcre2_with_jit = mkOption {
             type = types.bool;
             default = false;
             description = "Use JIT compiler for PCRE2 library";
           };
-          builtinRecastnavigation = mkOption {
+          builtin_recastnavigation = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in Recast navigation library";
           };
-          builtinRvo2_2d = mkOption {
+          builtin_rvo2_2d = mkOption {
             type = types.bool;
             default = true;
             description = "Use built-in RVO2 2D library";
           };
-          builtinRvo2_3d = mkOption {
+          builtin_rvo2_3d = mkOption {
             type = types.bool;
             default = true;
             description = "Use built-in RVO2 3D library";
           };
-          builtinXatlas = mkOption {
+          builtin_xatlas = mkOption {
             type = types.bool;
             default = true;
             description = "Use built-in xatlas library";
           };
-          builtinZlib = mkOption {
+          builtin_zlib = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in zlib library";
           };
-          builtinZstd = mkOption {
+          builtin_zstd = mkOption {
             type = types.bool;
             default = false;
             description = "Use built-in Zstd library";
@@ -628,39 +628,39 @@ in
             description = "Custom Windows resource compiler flags";
           };
 
-          cCompilerLauncher = mkOption {
+          c_compiler_launcher = mkOption {
             type = types.str;
             default = "";
             description = "C compiler launcher";
           };
-          cppCompilerLauncher = mkOption {
+          cpp_compiler_launcher = mkOption {
             type = types.str;
             default = "";
             description = "C++ compiler launcher";
           };
 
           # Linux/BSD platform options
-          useLlvm = mkOption {
+          use_llvm = mkOption {
             type = types.bool;
             default = false;
             description = "Use LLVM compiler";
           };
-          useStaticCpp = mkOption {
+          use_static_cpp = mkOption {
             type = types.bool;
             default = true;
             description = "Link libgcc/libstdc++ statically";
           };
-          useCoverage = mkOption {
+          use_coverage = mkOption {
             type = types.bool;
             default = false;
             description = "Enable test coverage";
           };
-          useMsan = mkOption {
+          use_msan = mkOption {
             type = types.bool;
             default = false;
             description = "Enable UBSAN";
           };
-          useSowrap = mkOption {
+          use_sowrap = mkOption {
             type = types.bool;
             default = false;
             description = "Dynamically load system libraries";
@@ -722,38 +722,38 @@ in
           };
 
           # Godot modules
-          modulesEnabledByDefault = mkOption {
+          modules_enabled_by_default = mkOption {
             type = types.bool;
             default = false;
             description = "Enable all modules by default (false = only explicit)";
           };
 
-          moduleMonoEnabled = mkOption {
+          module_mono_enabled = mkOption {
             type = types.bool;
             default = false;
             description = "C# support";
           };
 
           # Modules required for minimal editor build
-          moduleSvgEnabled = mkOption {
+          module_svg_enabled = mkOption {
             type = types.bool;
             default = true;
             description = "Enable svg module";
           };
 
-          moduleRegexEnabled = mkOption {
+          module_regex_enabled = mkOption {
             type = types.bool;
             default = true;
             description = "Enable regex module";
           };
 
-          moduleFreetypeEnabled = mkOption {
+          module_freetype_enabled = mkOption {
             type = types.bool;
             default = true;
             description = "Enable freetype module";
           };
 
-          moduleGltfEnabled = mkOption {
+          module_gltf_enabled = mkOption {
             type = types.bool;
             default = true;
             description = "Enable gltf module";
