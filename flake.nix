@@ -113,6 +113,10 @@
                   target = "template_release";
                 };
               };
+              godotCpp = pkgs.callPackage ./godot-cpp.nix {
+                src = inputs.godot-cpp;
+                godot = config.packages.default;
+              };
             };
 
             devShells = {
